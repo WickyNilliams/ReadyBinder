@@ -28,7 +28,7 @@
 
     }
 
-    $.start = function(options) {
+    $.readyBinder = function(options) {
 
         //allow for selector as well as wrapped jQuery set
         if(typeof options.target === "string") {
@@ -38,7 +38,7 @@
         wireUp(options);
     };
 
-    $.fn.start = function(options) {
+    $.fn.readyBinder = function(options) {
         wireUp(options);
     }
 
