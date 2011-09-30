@@ -20,7 +20,7 @@
 
             var handler = settings.handlers[handlerKeys[i]];
 
-            if (handler && typeof handler === "function") {
+            if (handler) {
                 handler();
             }
 
