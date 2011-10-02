@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!-- Try removing one of the attributes and
+    you will observe that the functionality
+    is no longer hooked up -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      data-readyBinder="time;saySomething">
+<head>
+    <title>ReadyBinder Example</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="ReadyBinder.js"></script>
+    <script type="text/javascript" src="example.js"></script>
+</head>
+<body>
+
+<h1>ReadyBinder Example</h1>
+<div class="say">
+    <label for="phrase">Phrase to say:</label>
+    <input id="phrase" type="text">
+    <button>Say!</button>
+    <p></p>
+</div>
+<div class="time">
+    <p></p>
+    <button>Get Current Time</button>
+</div>
+
+</body>
+</html>

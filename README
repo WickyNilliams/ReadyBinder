@@ -1,1 +1,5 @@
-Just created project, it's late and i need sleep! Will update later, probably tomorrow
+with readyBinder you can have one document ready handler which will never need to be changed (unless you want to reconfigure),and only the code you need to execute is executed.
+
+everything is wired up declaratively, by specifying the names of functions to execute on any attribute on any element.
+
+this means you no longer need server-side logic to spit out a relevant ready handler per page - your handler is now a write-once affair

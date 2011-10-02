@@ -17,15 +17,11 @@
                         .split(settings.delimiter);
 
         for (var i = 0; i < handlerKeys.length; i++) {
-
             var handler = settings.handlers[handlerKeys[i]];
-
             if (handler) {
                 handler();
             }
-
         }
-
     }
 
     $.readyBinder = function(options) {
@@ -39,9 +35,10 @@
     };
 
     $.fn.readyBinder = function(options) {
+        options.target = this;
         wireUp(options);
-    }
+    };
 
-    $.fn.start.defaults = defaults;
+    $.fn.readyBinder.defaults = defaults;
 
 })(jQuery);
