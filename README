@@ -1,7 +1,53 @@
-currently there are two common approaches to managing code for you document ready events for the page:
+WHAT'S THE PROBLEM?
+===================
+
+currently there are two common approaches to managing code for your document ready events:
+
 the first approach is simply to have a single document ready handler which is the same on every page of your site. as you add more functionality to different parts of your website, your document ready handler will inevitably become less focused, more bloated and will start to include code which isn't relevant to every page. so this approach can be inefficient and a maintenance problem.
-the second, more complex, approach involves generating highly-relevant document ready handlers on the server on a page-by-page basis. whilst this approach this approach solves the maintenance issue, and keep handlers focused and efficient, it violates separation of concerns as it forces your back-end application to be aware of, and responsible for, purely front-end concerns. also, you may forgo the benefits of client-side caching by including your document ready handlers inline in the page.
 
-with readyBinder you can have one document ready handler for your entire site. it will not need to be changed unless you wish to reconfigure how code is bound.
+the second, more complex, approach involves generating highly-relevant document ready handlers on the server on a page-by-page basis. whilst this approach this approach solves the maintenance issue, and keep handlers focused and efficient, it violates separation of concerns as it forces your back-end application to be aware of, and responsible for, purely front-end concerns (outputting javascript code). also, you may forgo the benefits of client-side caching by including your document ready handlers inline in the page.
 
-with readyBinder, everything is wired up declaratively. this is achieved by specifying, on any attribute on any DOM element, which pieces of encapsulated logic you wish to to to execute on the current page. this means your ready handler will become efficient, only executing code that is needed for the current page; maintenance is cut down by keeping your ready handler lean; a separation of concerns is achieved, because the server-side app no longer needs to be responsible for document ready handlers; and finally you can avoid inline document ready handlers, keeping your markup clean and allowing for the use of client-side caching.
+readyBinder allows you to have one document ready handler that can be used ubiquitously throughout your entire site, which aims to solve the issues relating to each of the above approaches and offer a consistent approach to document ready event management.
+
+
+HOW DOES THIS SOLVE THE PROBLEM?
+================================
+
+with readyBinder, everything is wired up declaratively on a per-paghe basis. this is achieved by specifying, on any attribute on any DOM element, which encapsulated pieces of logic you wish to to to execute for the current page. E.G.
+
+<body class="article">
+
+You simply supply readyBinder with an object which contains functions encapsulating various pieces of document ready logic. only code which has been declared relevant to the current page will be executed by readyBinder E.G.
+
+var handlers = {
+    article : function() {
+        // code specific to article pages here
+    },
+    landingPage : function() {
+        // code specific to landing pages here
+    }
+    //etc.
+}
+
+this means:
+ + your document ready handler will be more efficient, only executing code that is needed for the current page
+ + you will have less maintenance overhead as the document ready handler isn't taken care of by server side code, and it is now very lean
+ + a separation of concerns is achieved, because the server-side app no longer needs to be responsible for outputting document ready handlers
+ + finally you can avoid inline document ready handlers, keeping your markup clean and allowing for the use of client-side caching.
+
+a note on separation of concerns:
+whilst readyBinder eliminates the need for the server to output highly-focused document ready handlers per-page, the server must still be responsible for outputting the declarations for each page. if, for instance, document ready functionality was grouped by type of page (e.g. certain pages always require specific pieces of javascript to be executed) then the server could output a body element with a class which semantically described the type of page being served (as seen in the example above). this means the approach does not violate separation of concerns as the server is simply outputting a semantic description of the page, and is in no way aware of the existence of javascript (and it especially doesn't need to know how to output valid javascript!). if you wished for more fine-grained control over code (if there is variation even amongst "article" pages for instance),you could declare which types of functionality you need on this page e.g. <body class="carousel">. this equates to two approaching the issue at a page-level or at a "widget"-level.
+
+by default readyBinder will look for declarations in the class attribute of the body element, but this can easily be changed to use any other attribute (HTML5 data-* attributes are ideal alternatives)
+
+GREAT! SO HOW DO I USE IT?
+===========================
+
+the simplest use case is as follows:
+
+// assuming a previously defined "handlers" object
+// (e.g. as defined in the example above)
+$(function() {
+    // this is the only document ready handler you'll ever need!
+    $.readyBinder(handlers);
+}
