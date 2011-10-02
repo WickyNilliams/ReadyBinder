@@ -44,7 +44,7 @@ If you wished for more fine-grained control over code (if there is variation eve
 
 ##GREAT! So How Do I Use It?
 
-the simplest use case is as follows:
+The simplest use case is as follows:
 
     // assuming a previously defined "handlers" object
     // (e.g. as defined in the example above)
